@@ -8,19 +8,34 @@
                      <div class="my-3">
                          <label for="name" class="mb-2">Enter Name</label>
                          <input v-model="form.name" name="name"  type="text" id="name" class="form-control"/>
+                         <div v-if="form.errors.name" v-text="form.errors.name" class="text-danger"></div>
                      </div>
                      <div class="my-3">
                          <label for="email" class="mb-2">Email</label>
                          <input v-model="form.email" name="email"  type="text" id="email" class="form-control"/>
+                          <div v-if="form.errors.email" v-text="form.errors.email" class="text-danger"></div>
                      </div>
 
                      <div class="my-3">
                          <label for="password" class="mb-2">Password</label>
-                         <input v-model="form.password" name="password"  type="number" id="password" class="form-control"/>
+                         <input v-model="form.password" name="password"  type="password" id="password" class="form-control"/>
+                          <div v-if="form.errors.password" v-text="form.errors.password" class="text-danger"></div>
                      </div>
-                     <div v-if="form.errors.password" v-text="form.errors.password"></div>
 
-                     <button type="submit" class="btn btn-danger float-right">Regist</button>
+                     <div class="my-3">
+                         <label for="image" class="mb-2">Image</label>
+                         <input @input="form.image = $event.target.files[0]" class="form-control" type="file" id="image" name="image" />
+                     </div>
+
+
+                         <button type="submit" class="btn btn-primary float-right">
+                         <div v-show="form.processing" class="spinner-border spinner-border-sm text-white" role="status">
+                               <span class="visually-hidden">Loading...</span>
+                         </div>
+                           <div v-show="form.processing">Wait</div>
+                           <div v-show="!form.processing">Regist</div>
+                        </button>
+
                  </form>
              </div>
          </div>
@@ -30,14 +45,15 @@
 
 <script setup>
 import { useForm } from '@inertiajs/inertia-vue3';
-
+import { ref } from '@vue/reactivity';
 let form=useForm({
     name:'',
     email:'',
-    password:''
+    password:'',
+    image:''
 });
 let regist=()=>{
-    form.post('/regist')
+    form.post('/regist');
 }
 </script>
 

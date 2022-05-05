@@ -14,6 +14,18 @@ class AuthController extends Controller
     public function login(){
       return Inertia::render('Auth/Login');
     }
+    public function postLogin(){
+      $formData=request()->validate([
+           'email'=>['required',Rule::exists('users','email')],
+           'password'=>['required','min:5']
+       ]);
+       if(auth()->attempt($formData)){
+           return redirect('/');
+       }else{
+           return redirect()->back();
+       }
+
+    }
     public function register(){
       return Inertia::render('Auth/Register');
     }
@@ -33,5 +45,9 @@ class AuthController extends Controller
         $user=User::create($formData);
         auth()->login($user);
         return redirect('/');
+    }
+    public function logout(){
+       auth()->logout();
+       return redirect()->back()->with('success','successfully logout');
     }
 }

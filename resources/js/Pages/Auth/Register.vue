@@ -7,18 +7,18 @@
                  <form @submit.prevent="regist">
                      <div class="my-3">
                          <label for="name" class="mb-2">Enter Name</label>
-                         <input v-model="form.name" name="name"  type="text" id="name" class="form-control"/>
+                         <input v-model="form.name" name="name"  type="text" id="name" :class="['form-control',form.errors.email ?'border border-danger' :'']"/>
                          <div v-if="form.errors.name" v-text="form.errors.name" class="text-danger"></div>
                      </div>
                      <div class="my-3">
                          <label for="email" class="mb-2">Email</label>
-                         <input v-model="form.email" name="email"  type="text" id="email" class="form-control"/>
+                         <input v-model="form.email" name="email"  type="text" id="email" :class="['form-control',form.errors.email ?'border border-danger' :'']"/>
                           <div v-if="form.errors.email" v-text="form.errors.email" class="text-danger"></div>
                      </div>
 
                      <div class="my-3">
                          <label for="password" class="mb-2">Password</label>
-                         <input v-model="form.password" name="password"  type="password" id="password" class="form-control"/>
+                         <input v-model="form.password" name="password"  type="password" id="password" :class="['form-control',form.errors.email ?'border border-danger' :'']"/>
                           <div v-if="form.errors.password" v-text="form.errors.password" class="text-danger"></div>
                      </div>
 
@@ -28,7 +28,7 @@
                      </div>
 
 
-                         <button type="submit" class="btn btn-primary float-right">
+                         <button type="submit" class="btn btn-primary float-right" :disabled="form.processing">
                          <div v-show="form.processing" class="spinner-border spinner-border-sm text-white" role="status">
                                <span class="visually-hidden">Loading...</span>
                          </div>

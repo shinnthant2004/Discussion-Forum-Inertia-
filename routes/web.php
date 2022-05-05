@@ -7,5 +7,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[PageController::class,'home']);
 
 Route::get('/login',[AuthController::class,'login']);
-Route::get('/register',[AuthController::class,'register']);
+
+#Register
+Route::get('/regist',[AuthController::class,'register']);
+Route::post('/regist',[AuthController::class,'postRegister']);
 

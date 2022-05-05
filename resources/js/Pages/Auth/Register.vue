@@ -4,20 +4,23 @@
          <div class="card">
              <div class="card-header">Register Form</div>
              <div class="card-body">
-                 <form>
-                     <div class="form-group my-3">
+                 <form @submit.prevent="regist">
+                     <div class="my-3">
+                         <label for="name" class="mb-2">Enter Name</label>
+                         <input v-model="form.name" name="name"  type="text" id="name" class="form-control"/>
+                     </div>
+                     <div class="my-3">
                          <label for="email" class="mb-2">Email</label>
-                         <input type="text" id="email" class="form-control"/>
+                         <input v-model="form.email" name="email"  type="text" id="email" class="form-control"/>
                      </div>
-                     <div class="form-group my-3">
+
+                     <div class="my-3">
                          <label for="password" class="mb-2">Password</label>
-                         <input type="number" id="password" class="form-control"/>
+                         <input v-model="form.password" name="password"  type="number" id="password" class="form-control"/>
                      </div>
-                     <div class="form-group my-3">
-                         <label for="image" class="mb-2">Choose Image</label>
-                         <input type="file" id="image" class="form-control"/>
-                     </div>
-                     <button class="btn btn-danger float-right">Regist</button>
+                     <div v-if="form.errors.password" v-text="form.errors.password"></div>
+
+                     <button type="submit" class="btn btn-danger float-right">Regist</button>
                  </form>
              </div>
          </div>
@@ -25,10 +28,17 @@
     </div>
 </template>
 
-<script>
-    export default {
+<script setup>
+import { useForm } from '@inertiajs/inertia-vue3';
 
-    }
+let form=useForm({
+    name:'',
+    email:'',
+    password:''
+});
+let regist=()=>{
+    form.post('/regist')
+}
 </script>
 
 <style lang="scss" scoped>

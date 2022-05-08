@@ -20,7 +20,7 @@
                                <span class="visually-hidden">Loading...</span>
                          </div>
                            <div v-if="form.processing">Wait</div>
-                           <div v-else>Regist</div>
+                           <div v-else>Login</div>
                         </button>
                   </form>
               </div>

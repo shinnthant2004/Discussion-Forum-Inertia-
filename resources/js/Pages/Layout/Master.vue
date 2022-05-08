@@ -1,71 +1,13 @@
 <template>
     <div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <!-- Container wrapper -->
-  <div class="container">
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-mdb-toggle="collapse"
-      data-mdb-target="#navbarLeftAlignExample"
-      aria-controls="navbarLeftAlignExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
-
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Discussion</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <!-- Navbar dropdown -->
-        <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbarDropdown"
-            role="button"
-            data-mdb-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Dropdown
-          </a>
-          <!-- Dropdown menu -->
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
-              <a class="dropdown-item" href="#">Action</a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#">Another action</a>
-            </li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled"
-            >Disabled</a
-          >
-        </li>
-      </ul>
-      <!-- Left links -->
-    </div>
-    <!-- Collapsible wrapper -->
-  </div>
-  <!-- Container wrapper -->
-</nav>
+<Navbar></Navbar>
 <!-- Sidebar -->
 <div class="container">
+ <div v-if="message && showNoti" class="alert">
+    <div class="alert alert-success w-25" style="position: absolute;right: 0;z-index: 20;">
+        <p class="p-0 m-0 fw-bold">{{ message }}</p>
+    </div>
+ </div>
     <div class="row my-4">
         <div class="col-md-4">
             <a href="" class="btn btn-primary w-100 p-2">Ask New Question!</a>
@@ -95,7 +37,7 @@
                           <span class="text-white ms-2">What is HTML?</span>
                         </div>
                         <div>
-                          <a class="badge bg-danger text-right ms-1">Delete</a>
+                          <a href="/delete" class="badge bg-danger text-right ms-1">Delete</a>
                           <a class="badge bg-warning text-right ms-1">Fixed</a>
                         </div>
                     </div>
@@ -132,7 +74,7 @@
                 </div>
             </div>
 
- <div class="card my-3">
+             <div class="card my-3">
                 <div class="card-header bg-dark">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -229,10 +171,20 @@
     </div>
 </template>
 
-<script>
-    export default {
-
-    }
+<script setup>
+import { ref } from "@vue/reactivity";
+import { onMounted } from "@vue/runtime-core";
+import Navbar from "./Navbar.vue";
+defineProps({
+    message:String
+});
+let showNoti=ref(false);
+onMounted(()=>{
+    showNoti.value=true;
+    setTimeout(() => {
+       showNoti.value=false;
+    }, 2000);
+})
 </script>
 
 <style lang="scss" scoped>

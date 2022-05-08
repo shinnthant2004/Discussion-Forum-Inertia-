@@ -8,7 +8,6 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
-
 class AuthController extends Controller
 {
     public function login(){
@@ -49,5 +48,8 @@ class AuthController extends Controller
     public function logout(){
        auth()->logout();
        return redirect()->back()->with('success','successfully logout');
+    }
+    public function delete(){
+        return redirect()->back();
     }
 }

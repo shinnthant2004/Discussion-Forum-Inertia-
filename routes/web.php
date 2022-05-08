@@ -8,7 +8,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/',[PageController::class,'home']);
     Route::get('/logout',[AuthController::class,'logout']);
 });
-
+Route::get('/delete',[AuthController::class,'delete']);
 Route::middleware('guest')->group(function(){
     Route::get('/login',[AuthController::class,'login'])->name('login');
     Route::post('/login',[AuthController::class,'postLogin']);

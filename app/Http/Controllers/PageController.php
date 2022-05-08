@@ -8,6 +8,6 @@ use Inertia\Inertia;
 class PageController extends Controller
 {
     public function home(){
-      return  Inertia::render('Home');
+      return  Inertia::render('Home')->with('message','inertia flash message');
     }
 }

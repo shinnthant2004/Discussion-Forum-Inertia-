@@ -1,13 +1,12 @@
 <template>
 
-      <Master></Master>
-
+      <Master :message="$page.props.message"></Master>
 </template>
 
 <script>
 import Master from "./Layout/Master.vue";
     export default {
-    components: { Master }
+    components: { Master },
 }
 </script>
 

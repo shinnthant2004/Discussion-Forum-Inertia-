@@ -12,6 +12,7 @@ Route::middleware('auth')->group(function(){
     Route::get('/logout',[AuthController::class,'logout']);
     // EditUser
     Route::get('/profile/edituser',[PageController::class,'editUser']);
+    Route::post('/profile/edituser',[PageController::class,'postEditUser']);
     // QuestionDetail
     Route::get('/question/detail',[QuestionController::class,'detail']);
 });

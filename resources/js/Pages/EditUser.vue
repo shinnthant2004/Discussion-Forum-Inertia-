@@ -4,7 +4,10 @@
      <div class="card">
          <div class="card-header">Edit User</div>
          <div class="card-body">
-             <form>
+             <form @submit.prevent="update">
+                 <div v-if="$page.props.success" class="my-3">
+                     <div class="alert alert-success">{{ $page.props.success }}</div>
+                 </div>
                  <div class="my-3">
                      <label for="name">Name</label>
                      <input type="text" v-model="form.name"  id="name"  class="form-control"/>
@@ -22,7 +25,13 @@
                      <label for="image">Choose Image</label>
                      <input  @input="form.image = $event.target.files[0]"  type="file" id="image" class="form-control"/>
                  </div>
-                 <button class="btn btn-primary">Update</button>
+                 <button type="submit" class="btn btn-primary float-right" :disabled="form.processing">
+                         <div v-show="form.processing" class="spinner-border spinner-border-sm text-white" role="status">
+                               <span class="visually-hidden">Loading...</span>
+                         </div>
+                           <div v-if="form.processing">Wait</div>
+                           <div v-else>Update</div>
+                 </button>
              </form>
          </div>
      </div>
@@ -49,8 +58,11 @@ export default {
            form.name=props.auth_user.name;
            form.email=props.auth_user.email;
            form.password=props.auth_user.password;
+        };
+        let update=()=>{
+            form.post('/profile/edituser')
         }
-        return {form}
+        return {form,update}
     }
 }
 </script>

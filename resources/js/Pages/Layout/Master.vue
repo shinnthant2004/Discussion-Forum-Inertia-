@@ -3,9 +3,9 @@
 <Navbar></Navbar>
 <!-- Sidebar -->
 <div class="container">
- <div v-if="message && showNoti" class="alert">
+ <div v-if="success && showNoti" class="alert">
     <div class="alert alert-success w-25" style="position: absolute;right: 0;z-index: 20;">
-        <p class="p-0 m-0 fw-bold">{{ message }}</p>
+        <p class="p-0 m-0 fw-bold">{{ success }}</p>
     </div>
  </div>
     <div class="row my-4">
@@ -43,7 +43,7 @@ import { ref } from "@vue/reactivity";
 import { onMounted } from "@vue/runtime-core";
 import Navbar from "./Navbar.vue";
 defineProps({
-    message:String
+    success:String
 });
 let showNoti=ref(false);
 onMounted(()=>{

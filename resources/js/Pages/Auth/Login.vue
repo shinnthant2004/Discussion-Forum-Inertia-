@@ -15,13 +15,14 @@
                           <input v-model="form.password" type="password" name="password" id="password" :class="['form-control',form.errors.email ?'border border-danger' :'']">
                            <div v-if="form.errors.password" v-text="form.errors.password" class="text-danger"></div>
                       </div>
-                       <button type="submit" class="btn btn-success float-right" :disabled="form.processing">
+                       <button type="submit" class="btn btn-primary float-right" :disabled="form.processing">
                          <div v-show="form.processing" class="spinner-border spinner-border-sm text-white" role="status">
                                <span class="visually-hidden">Loading...</span>
                          </div>
                            <div v-if="form.processing">Wait</div>
                            <div v-else>Login</div>
                         </button>
+                       <a href="/regist" class="btn btn-outline-primary ms-3">Register</a>
                   </form>
               </div>
           </div>

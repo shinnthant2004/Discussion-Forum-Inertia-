@@ -6,6 +6,7 @@ use App\Models\User;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 class AuthController extends Controller
@@ -43,11 +44,11 @@ class AuthController extends Controller
         ];
         $user=User::create($formData);
         auth()->login($user);
-        return redirect('/');
+        return redirect()->route('home')->with('success','New user has been created..');
     }
     public function logout(){
        auth()->logout();
-       return redirect()->back()->with('success','successfully logout');
+       return redirect()->back();
     }
     public function delete(){
         return redirect()->back();

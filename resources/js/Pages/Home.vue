@@ -1,6 +1,5 @@
 <template>
-
-      <Master :message="$page.props.message">
+      <Master :success="$page.props.success">
                <div class="card mb-3">
                 <div class="card-header bg-dark">
                     <div class="d-flex justify-content-between">

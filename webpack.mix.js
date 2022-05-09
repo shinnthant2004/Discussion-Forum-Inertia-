@@ -12,7 +12,7 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .vue(3)
+.vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
     .postCss('resources/css/app.css', 'public/css', [
         //
     ])

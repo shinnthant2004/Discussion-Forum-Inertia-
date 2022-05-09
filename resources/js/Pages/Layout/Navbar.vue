@@ -27,7 +27,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item" href="#">Username</a></li>
             <li><Link class="dropdown-item" href="/profile/edituser">Edit User</Link></li>
-            <li><a class="dropdown-item" href="#">Log Out</a></li>
+            <li><a class="dropdown-item" href="/logout">Log Out</a></li>
           </ul>
         </li>
       </ul>

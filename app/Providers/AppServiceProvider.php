@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Tag;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
-use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +29,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Model::unguard();
+        Inertia::share([
+          'auth_user'=>function(){
+              return Auth::user();
+          },
+          'tags'=>function(){
+              return Tag::all();
+          }
+        ]);
     }
 }

@@ -15,14 +15,8 @@
                 <div class="card-header">All Tags</div>
                 <div class="card-body">
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            <a >Web Development</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a >Web Development</a>
-                        </li>
-                        <li class="list-group-item">
-                            <a >Web Development</a>
+                        <li class="list-group-item" v-for="tag in $page.props.tags" :key="tag.id">
+                            <Link>{{ tag.name }}</Link>
                         </li>
                     </ul>
                 </div>
@@ -40,6 +34,7 @@
 
 <script setup>
 import { ref } from "@vue/reactivity";
+import { Link } from "@inertiajs/inertia-vue3";
 import { onMounted } from "@vue/runtime-core";
 import Navbar from "./Navbar.vue";
 defineProps({

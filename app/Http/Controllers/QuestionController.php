@@ -17,7 +17,6 @@ class QuestionController extends Controller
             $questions[$k]->is_like=$this->likeDetail($v->id)['is_like'];
             $questions[$k]->like_count=$this->likeDetail($v->id)['like_count'];
         }
-        return $questions;
         return  Inertia::render('Home',[
             'questions'=>$questions
         ]);
@@ -40,5 +39,12 @@ class QuestionController extends Controller
        $data['like_count']=$like_count;
        $data['is_like']=$is_like;
        return $data;
+    }
+    public function like($id){
+       QuestionLike::create([
+           'question_id'=>$id,
+           'user_id'=>Auth::user()->id
+       ]);
+       return response()->json(['success'=>true]);
     }
 }

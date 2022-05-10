@@ -1,6 +1,6 @@
 <template>
       <Master :success="$page.success">
-               <div v-for="q in $page.props.questions" :key="q.id" class="card mb-3">
+               <div v-for="(q,index) in questiones" :key="q.id" class="card mb-3">
                 <div class="card-header bg-dark">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -23,8 +23,9 @@
                 <div class="row p-2">
                     <div class="col-md-3 d-flex">
                         <div class="ms-4">
-                            <i class="fas fa-heart text-danger"></i>
-                            <small>0</small>
+                            <i v-show="q.is_like=='false'" @click="like(q.id,index)" class="far fa-heart text-danger"></i>
+                            <i v-show="q.is_like=='true'"  class="fas fa-heart text-danger"></i>
+                            <small>{{ q.like_count }}</small>
                         </div>
                         <div class="ms-4">
                             <i class="fas fa-comment text-success"></i>
@@ -46,9 +47,34 @@
       </Master>
 </template>
 
-<script setup>
+<script>
 import Master from "./Layout/Master.vue";
 import { Link } from "@inertiajs/inertia-vue3";
+import axios from "axios";
+import { ref } from '@vue/reactivity';
+export default {
+
+    components:{Master,Link},
+    props:['questions'],
+
+    setup(props){
+    let questiones=ref('');
+    if(props.questions){
+        questiones.value=props.questions
+    }
+
+    let like=(id,index)=>{
+     questiones.value[index].is_like='true';
+     questiones.value[index].like_count++;
+     axios.get(`/question/like/${id}`).then(res => {
+     if(res.data.success==true){
+          console.log('true')
+     }})
+     }
+
+     return {like,questiones}
+}
+}
 </script>
 
 <style lang="scss" scoped>

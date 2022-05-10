@@ -15,6 +15,8 @@ Route::middleware('auth')->group(function(){
     Route::post('/profile/edituser',[PageController::class,'postEditUser']);
     // QuestionDetail
     Route::get('/question/detail',[QuestionController::class,'detail']);
+    // Like
+    Route::get('/question/like/{id}',[QuestionController::class,'like']);
 });
 Route::get('/delete',[AuthController::class,'delete']);
 Route::middleware('guest')->group(function(){

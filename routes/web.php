@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Whoops\Run;
 
 Route::middleware('auth')->group(function(){
-    Route::get('/',[PageController::class,'home'])->name('home');
+    Route::get('/',[QuestionController::class,'home'])->name('home');
     // Logout
     Route::get('/logout',[AuthController::class,'logout']);
     // EditUser

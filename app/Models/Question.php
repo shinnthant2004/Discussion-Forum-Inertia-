@@ -14,11 +14,11 @@ class Question extends Model
     }
 
     public function tag(){
-    return $this->belongsToMany(Tag::class,'question_tag');
+    return $this->belongsToMany(Tag::class,'question_tags');
     }
 
     public function like(){
-    return $this->belongsToMany(User::class,'question_like');
+    return $this->belongsToMany(User::class,'question_likes');
     }
 
     public function saveQ(){

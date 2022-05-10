@@ -11,12 +11,6 @@ use Inertia\Inertia;
 
 class PageController extends Controller
 {
-    public function home(){
-        $questions=Question::with('comment','like','tag','saveQ')->get();
-        return  Inertia::render('Home',[
-            'questions'=>$questions
-        ]);
-    }
     public function editUser(){
       return Inertia::render('EditUser');
     }

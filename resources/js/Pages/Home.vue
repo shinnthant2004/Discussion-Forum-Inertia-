@@ -24,7 +24,7 @@
                     <div class="col-md-3 d-flex">
                         <div class="ms-4">
                             <i class="fas fa-heart text-danger"></i>
-                            <small>{{q.like.length}}</small>
+                            <small>0</small>
                         </div>
                         <div class="ms-4">
                             <i class="fas fa-comment text-success"></i>

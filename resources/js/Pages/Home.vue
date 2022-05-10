@@ -4,12 +4,13 @@
                 <div class="card-header bg-dark">
                     <div class="d-flex justify-content-between">
                         <div>
-                          <span class="badge bg-danger">Need Fixed!</span>
+                          <span v-if="!q.is_fixed" class="badge bg-danger">Need Fixed!</span>
+                          <span v-else class="badge bg-success">Fixed!</span>
                           <span class="text-white ms-2">{{ q.title }}</span>
                         </div>
                         <div>
-                          <a href="/delete" class="badge bg-danger text-right ms-1">Delete</a>
-                          <a class="badge bg-warning text-right ms-1">Fixed</a>
+                          <a v-show="isOwn(q.user_id)" href="/delete" class="badge bg-danger text-right ms-1">Delete</a>
+                          <a v-show="isOwn(q.user_id)" class="badge bg-warning text-right ms-1">Fixed</a>
                         </div>
                     </div>
                 </div>
@@ -55,7 +56,7 @@ import { ref } from '@vue/reactivity';
 export default {
 
     components:{Master,Link},
-    props:['questions'],
+    props:['questions','auth_user'],
 
     setup(props){
     let questiones=ref('');
@@ -70,9 +71,17 @@ export default {
      if(res.data.success==true){
           console.log('true')
      }})
-     }
+    }
+    let isOwn=(id)=>{
+        let user_id=props.auth_user.id;
+        if(id==user_id){
+          return true
+        }else{
+            return false
+        }
+    }
 
-     return {like,questiones}
+     return {like,questiones,isOwn}
 }
 }
 </script>

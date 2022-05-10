@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Question;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,10 @@ use Inertia\Inertia;
 class PageController extends Controller
 {
     public function home(){
-      return  Inertia::render('Home');
+        $questions=Question::with('comment','like','tag','saveQ')->get();
+        return  Inertia::render('Home',[
+            'questions'=>$questions
+        ]);
     }
     public function editUser(){
       return Inertia::render('EditUser');

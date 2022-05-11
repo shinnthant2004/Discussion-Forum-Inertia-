@@ -8,9 +8,11 @@ use App\Models\QuestionLike;
 use App\Models\QuestionTag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Traits\Question as QuestionTrait;
 class QuestionController extends Controller
 {
+    use QuestionTrait;
+
     public function home(){
         $questions=Question::with('comment','tag','saveQ')->get();
         foreach($questions as $k=>$v){
@@ -22,23 +24,11 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function detail(){
+    public function detail(Question $q){
+         $q->is_like=$this->likeDetail($q->id)['is_like'];
+         $q->like_count=$this->likeDetail($q->id)['like_count'];
+         dd($q);
          return Inertia::render('QuestionDetail');
-    }
-    public function likeDetail($question_id){
-       $q_like=QuestionLike::where('question_id',$question_id)
-                           ->where('user_id',Auth::user()->id)
-                           ->first();
-       if($q_like){
-           $is_like='true';
-       }else{
-           $is_like='false';
-       }
-
-       $like_count=QuestionLike::where('question_id',$question_id)->count();
-       $data['like_count']=$like_count;
-       $data['is_like']=$is_like;
-       return $data;
     }
     public function like($id){
        QuestionLike::create([

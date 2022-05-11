@@ -20,7 +20,7 @@ class AuthController extends Controller
            'password'=>['required','min:5']
        ]);
        if(auth()->attempt($formData)){
-           return redirect('/');
+           return redirect('/')->with('success','Login success');
        }else{
            return redirect()->back();
        }

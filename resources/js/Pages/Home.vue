@@ -1,5 +1,5 @@
 <template>
-      <Master :success="$page.success">
+      <Master :success="$page.props.success">
                <div v-for="(q,index) in questiones" :key="q.id" class="card mb-3">
                 <div class="card-header bg-dark">
                     <div class="d-flex justify-content-between">
@@ -41,7 +41,7 @@
                      <Link v-for="tag in $page.props.tags" :key="tag.id" class="badge bg-dark ms-2">{{ tag.name }}</Link>
                     </div>
                     <div class="col-md-2">
-                        <Link class="btn btn-sm btn-primary" href="/question/detail">View</Link>
+                        <Link class="btn btn-sm btn-primary" :href="route('question.detail',q.slug)">View</Link>
                     </div>
                 </div>
                </div>

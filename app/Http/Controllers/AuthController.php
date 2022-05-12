@@ -36,11 +36,15 @@ class AuthController extends Controller
             'password'=>['required','min:6'],
             'image'=>['required']
         ]);
+        $image=$request->file('image');
+        $image_name=uniqid().str_replace(" ","",$image->getClientOriginalName());
+        $image_path='/images/profile/';
+        $image->move(public_path('images/profile'),$image_name);
         $formData=[
             'name'=>$request->name,
             'email'=>$request->email,
             'password'=>Hash::make($request->password),
-            'image'=>request()->file('image')->store('userImages')
+            'image'=>$image_path.$image_name
         ];
         $user=User::create($formData);
         auth()->login($user);

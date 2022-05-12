@@ -24,11 +24,13 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function detail(Question $q){
-         $q->is_like=$this->likeDetail($q->id)['is_like'];
-         $q->like_count=$this->likeDetail($q->id)['like_count'];
-         dd($q);
-         return Inertia::render('QuestionDetail');
+    public function detail($slug){
+        $question=Question::where('slug',$slug)->with('comment.user','tag','saveQ')->first();
+         $question->is_like=$this->likeDetail($question->id)['is_like'];
+         $question->like_count=$this->likeDetail($question->id)['like_count'];
+         return Inertia::render('QuestionDetail',[
+             'question'=>$question
+         ]);
     }
     public function like($id){
        QuestionLike::create([

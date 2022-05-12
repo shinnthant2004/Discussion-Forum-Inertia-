@@ -11,12 +11,27 @@
     <div class="row my-4">
         <div class="col-md-4">
             <a href="/question/create" class="btn btn-primary w-100 p-2">Ask New Question!</a>
-            <div class="card shadow">
+
+            <div class="card shadow" v-if="route=='/profile/edituser'">
+                <div class="card-header">Profile</div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <Link href="/profile/edituser"><i class="fas fa-bars me-2"></i>Edit Profile</Link>
+
+                        </li>
+                        <li class="list-group-item">
+                            <Link href="/"><i class="fas fa-award me-2"></i>Your Questions</Link>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                   <div v-else class="card shadow">
                 <div class="card-header">All Tags</div>
                 <div class="card-body">
                     <ul class="list-group">
                         <li class="list-group-item" v-for="tag in $page.props.tags" :key="tag.id">
-                            <Link>{{ tag.name }}</Link>
+                            <Link href>{{ tag.name }}</Link>
                         </li>
                     </ul>
                 </div>
@@ -40,8 +55,10 @@ import Navbar from "./Navbar.vue";
 defineProps({
     success:String
 });
+let route=ref('');
 let showNoti=ref(false);
 onMounted(()=>{
+    route.value=location.pathname;
     showNoti.value=true;
     setTimeout(() => {
        showNoti.value=false;

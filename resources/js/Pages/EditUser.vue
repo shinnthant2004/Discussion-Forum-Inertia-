@@ -25,6 +25,9 @@
                      <label for="image">Choose Image</label>
                      <input  @input="form.image = $event.target.files[0]"  type="file" id="image" class="form-control"/>
                  </div>
+                 <div class="my-2">
+                     <img :src="auth_user.image" width="80">
+                 </div>
                  <button type="submit" class="btn btn-primary float-right" :disabled="form.processing">
                          <div v-show="form.processing" class="spinner-border spinner-border-sm text-white" role="status">
                                <span class="visually-hidden">Loading...</span>

@@ -21,7 +21,7 @@
 
                         </li>
                         <li class="list-group-item">
-                            <Link href="/"><i class="fas fa-award me-2"></i>Your Questions</Link>
+                            <Link href="/question/user"><i class="fas fa-award me-2"></i>Your Questions</Link>
                         </li>
                     </ul>
                 </div>

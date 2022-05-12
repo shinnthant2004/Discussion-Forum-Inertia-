@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
+use App\Models\User;
 use Inertia\Inertia;
+use App\Models\Comment;
 use App\Models\Question;
-use App\Models\QuestionLike;
 use App\Models\QuestionTag;
+use App\Models\QuestionLike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\Question as QuestionTrait;
+
 class QuestionController extends Controller
 {
     use QuestionTrait;
@@ -53,5 +55,12 @@ class QuestionController extends Controller
     }
     public function create(){
         return Inertia::render('CreateQuestion');
+    }
+    public function questionUser(){
+      $user=User::find(Auth::user()->id);
+      $questions=$user->question;
+      return Inertia::render('QuestionUser',[
+          'questions'=>$questions
+      ]);
     }
 }

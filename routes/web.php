@@ -22,6 +22,8 @@ Route::middleware('auth')->group(function(){
     // QuestionCreate
     Route::get('/question/create',[QuestionController::class,'create']);
     Route::post('/question/create',[QuestionController::class,'store']);
+    //QuestionUser
+    Route::get('/question/user',[QuestionController::class,'questionUser']);
 });
 Route::get('/delete',[AuthController::class,'delete']);
 Route::middleware('guest')->group(function(){

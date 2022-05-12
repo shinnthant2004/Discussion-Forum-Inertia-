@@ -12,7 +12,7 @@
         <div class="col-md-4">
             <a href="/question/create" class="btn btn-primary w-100 p-2">Ask New Question!</a>
 
-            <div class="card shadow" v-if="route=='/profile/edituser'">
+            <div class="card shadow" v-show="isProfile">
                 <div class="card-header">Profile</div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -21,12 +21,12 @@
 
                         </li>
                         <li class="list-group-item">
-                            <Link href="/question/user"><i class="fas fa-award me-2"></i>Your Questions</Link>
+                            <Link href="/profile/question"><i class="fas fa-award me-2"></i>Your Questions</Link>
                         </li>
                     </ul>
                 </div>
             </div>
-                   <div v-else class="card shadow">
+                   <div v-show="!isProfile" class="card shadow">
                 <div class="card-header">All Tags</div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -50,19 +50,27 @@
 <script setup>
 import { ref } from "@vue/reactivity";
 import { Link } from "@inertiajs/inertia-vue3";
-import { onMounted } from "@vue/runtime-core";
+import { computed, onMounted } from "@vue/runtime-core";
 import Navbar from "./Navbar.vue";
 defineProps({
     success:String
 });
-let route=ref('');
 let showNoti=ref(false);
 onMounted(()=>{
-    route.value=location.pathname;
     showNoti.value=true;
     setTimeout(() => {
        showNoti.value=false;
     }, 2000);
+})
+let isProfile=computed(()=>{
+    let url=location.pathname;
+    let exp="/profile/.*"
+    let res=url.match(exp);
+    if(res!=null){
+        return true
+    }else{
+        return false
+    }
 })
 </script>
 

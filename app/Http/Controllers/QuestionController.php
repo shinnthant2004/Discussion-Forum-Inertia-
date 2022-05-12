@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Inertia\Inertia;
 use App\Models\Question;
 use App\Models\QuestionLike;
@@ -38,5 +39,16 @@ class QuestionController extends Controller
            'user_id'=>Auth::user()->id
        ]);
        return response()->json(['success'=>true]);
+    }
+    public function createComment(Request $request){
+        $q_id=$request->question_id;
+        $content=$request->content;
+        $comment=Comment::create([
+            'user_id'=>Auth::user()->id,
+            'question_id'=>$q_id,
+            'content'=>$content
+        ]);
+        $createdComment=Comment::where('id',$comment->id)->with('user')->first();
+       return ['success'=>true,'comment'=>$createdComment];
     }
 }

@@ -17,6 +17,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/question/detail/{q:slug}',[QuestionController::class,'detail'])->name('question.detail');
     // Like
     Route::get('/question/like/{id}',[QuestionController::class,'like']);
+    // Comment
+    Route::post('/question/comment/create',[QuestionController::class,'createComment']);
 });
 Route::get('/delete',[AuthController::class,'delete']);
 Route::middleware('guest')->group(function(){

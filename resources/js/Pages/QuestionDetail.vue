@@ -43,8 +43,19 @@
                             <p class="mb-0">{{ question.description }}</p>
                         </div>
                     </div>
-
-                    <!-- Comment -->
+                <!-- Comment Here-->
+                    <div class="row my-2">
+                        <div class="col-md-12">
+                            <form @submit.prevent="createComment(question.id)">
+                                <textarea v-model="comment" class="form-control" placeholder="Give Answer"></textarea>
+                                <div class="text-end">
+                                    <button class="btn-sm btn-warning my-2">Enter</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                <!-- Comment End -->
+                    <!-- Comment Section -->
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card" v-for="c in question.comment" :key="c.id">
@@ -70,11 +81,26 @@
 <script>
 import Master from './Layout/Master.vue'
 import { Link } from '@inertiajs/inertia-vue3';
+import { ref } from '@vue/reactivity';
+import axios from 'axios';
+
 export default {
     props:{question:Object},
     components:{Master,Link},
     setup(props){
-
+        let comment=ref('');
+        let createComment=(q_id)=>{
+           let data=new FormData();
+           data.append('question_id',q_id);
+           data.append('content',comment.value);
+           axios.post('/question/comment/create',data).then(res=>{
+              let {success,comment}=res.data;
+              if(success){
+                  props.question.comment.push(comment);
+              }
+           })
+       }
+       return {createComment,comment}
     }
 }
 </script>

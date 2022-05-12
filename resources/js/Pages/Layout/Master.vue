@@ -10,7 +10,7 @@
  </div>
     <div class="row my-4">
         <div class="col-md-4">
-            <a href="" class="btn btn-primary w-100 p-2">Ask New Question!</a>
+            <a href="/question/create" class="btn btn-primary w-100 p-2">Ask New Question!</a>
             <div class="card shadow">
                 <div class="card-header">All Tags</div>
                 <div class="card-body">

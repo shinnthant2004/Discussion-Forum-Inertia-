@@ -69,7 +69,7 @@ export default {
      questiones.value[index].like_count++;
      axios.get(`/question/like/${id}`).then(res => {
      if(res.data.success==true){
-          console.log('true')
+          console.log('true');
      }})
     }
     let isOwn=(id)=>{

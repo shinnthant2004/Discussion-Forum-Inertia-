@@ -51,4 +51,7 @@ class QuestionController extends Controller
         $createdComment=Comment::where('id',$comment->id)->with('user')->first();
        return ['success'=>true,'comment'=>$createdComment];
     }
+    public function create(){
+        return Inertia::render('CreateQuestion');
+    }
 }

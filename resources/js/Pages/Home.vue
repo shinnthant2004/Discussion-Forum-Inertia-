@@ -10,8 +10,8 @@
                           <span class="text-white ms-2">{{ q.title }}</span>
                         </div>
                         <div>
-                          <a v-show="isOwn(q.user_id)" href="/delete" class="badge bg-danger text-right ms-1">Delete</a>
-                          <a v-show="isOwn(q.user_id)" class="badge bg-warning text-right ms-1">Fixed</a>
+                          <button :disabled="q.is_fixed" v-show="isOwn(q.user_id)" @click="fixQuestion(index,q.id)" class="badge bg-warning text-right ms-1">Fixed</button>
+                          <button v-show="isOwn(q.user_id)" href="/delete" class="badge bg-danger text-right ms-1">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -82,8 +82,18 @@ export default {
             return false
         }
     }
+    let fixQuestion=(index,q_id)=>{
+        let data=new FormData();
+        data.append('id',q_id);
+        axios.get('/question/fix',data).then(res=>{
+            if(res.data.success){
+               questiones.value.data[index].is_fixed='true'
+                console.log('success')
+            }
+        })
+    }
 
-     return {like,questiones,isOwn}
+     return {like,questiones,isOwn,fixQuestion}
 }
 }
 </script>

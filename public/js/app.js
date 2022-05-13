@@ -21720,10 +21720,22 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
 
+    var fixQuestion = function fixQuestion(index, q_id) {
+      var data = new FormData();
+      data.append('id', q_id);
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get('/question/fix', data).then(function (res) {
+        if (res.data.success) {
+          questiones.value.data[index].is_fixed = 'true';
+          console.log('success');
+        }
+      });
+    };
+
     return {
       like: like,
       questiones: questiones,
-      isOwn: isOwn
+      isOwn: isOwn,
+      fixQuestion: fixQuestion
     };
   }
 });
@@ -22629,12 +22641,10 @@ var _hoisted_4 = {
 var _hoisted_5 = {
   "class": "text-white ms-2"
 };
-var _hoisted_6 = {
+var _hoisted_6 = ["disabled", "onClick"];
+var _hoisted_7 = {
   href: "/delete",
   "class": "badge bg-danger text-right ms-1"
-};
-var _hoisted_7 = {
-  "class": "badge bg-warning text-right ms-1"
 };
 var _hoisted_8 = {
   "class": "card-body"
@@ -22709,9 +22719,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           "class": "card mb-3"
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [!q.is_fixed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, "Need Fixed!")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_4, "Fixed!")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(q.title), 1
         /* TEXT */
-        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_6, "Delete", 512
-        /* NEED_PATCH */
-        ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id)]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_7, "Fixed", 512
+        )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+          disabled: q.is_fixed,
+          onClick: function onClick($event) {
+            return $setup.fixQuestion(index, q.id);
+          },
+          "class": "badge bg-warning text-right ms-1"
+        }, "Fixed", 8
+        /* PROPS */
+        , _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id)]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_7, "Delete", 512
         /* NEED_PATCH */
         ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id)]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(q.description), 1
         /* TEXT */

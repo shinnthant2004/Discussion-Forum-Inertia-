@@ -20,7 +20,7 @@ class QuestionController extends Controller
     public function home(Request $request){
        if($slug=$request->tag){
           $tag=Tag::where('slug',$slug)->first();
-          $questions=$tag->questions()->with('comment','tag','saveQ')->paginate(2);
+          $questions=$tag->questions()->with('comment','tag','saveQ')->paginate(2)->withQueryString();
         }else{
         $questions=Question::with('comment','tag','saveQ')->paginate(2);
         }
@@ -87,5 +87,12 @@ class QuestionController extends Controller
     public function delete($id){
       Question::where('id',$id)->delete();
       return response()->json(['success'=>true]);
+    }
+    public function fix(){
+        $q_id=request()->id;
+        Question::where('id',$q_id)->update([
+            'is_fixed'=>'true'
+        ]);
+        return response()->json(['success'=>true]);
     }
 }

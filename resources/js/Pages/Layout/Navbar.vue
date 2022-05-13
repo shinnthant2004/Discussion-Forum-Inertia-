@@ -26,6 +26,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item fw-bold" href="#">Welcome {{ $page.props.auth_user.name }}</a></li>
+            <li><Link class="dropdown-item" :href="route('question.create')">Create Question</Link></li>
             <li><Link class="dropdown-item" href="/profile/edituser">Edit User</Link></li>
             <li><a class="dropdown-item" href="/logout">Log Out</a></li>
           </ul>

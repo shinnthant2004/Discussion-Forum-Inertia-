@@ -63,6 +63,20 @@ class QuestionController extends Controller
     public function create(){
         return Inertia::render('CreateQuestion');
     }
+    public function store(Request $request){
+       $tag_id=$request->tag;
+       $q=Question::create([
+           'user_id'=>Auth::user()->id,
+           'title'=>$request->title,
+           'slug'=>$request->title,
+           'description'=>$request->description,
+       ]);
+       QuestionTag::create([
+           'question_id'=>$q->id,
+           'Tag_id'=>$tag_id,
+       ]);
+       return response()->json(['success'=>true]);
+    }
     public function questionUser(){
       $user_id=Auth::user()->id;
       $questions=Question::where('user_id',$user_id)->paginate(2);

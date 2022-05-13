@@ -20,8 +20,8 @@ Route::middleware('auth')->group(function(){
     // Comment
     Route::post('/question/comment/create',[QuestionController::class,'createComment']);
     // QuestionCreate
-    Route::get('/question/create',[QuestionController::class,'create']);
-    Route::post('/question/create',[QuestionController::class,'store']);
+    Route::get('/question/create',[QuestionController::class,'create'])->name('question.create');
+    Route::post('/question/create',[QuestionController::class,'store'])->name('question.create');
     //QuestionUser
     Route::get('/profile/question',[QuestionController::class,'questionUser']);
     // DeleteQuestion

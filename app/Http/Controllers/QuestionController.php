@@ -17,7 +17,7 @@ class QuestionController extends Controller
     use QuestionTrait;
 
     public function home(){
-        $questions=Question::with('comment','tag','saveQ')->get();
+        $questions=Question::with('comment','tag','saveQ')->paginate(2);
         foreach($questions as $k=>$v){
             $questions[$k]->is_like=$this->likeDetail($v->id)['is_like'];
             $questions[$k]->like_count=$this->likeDetail($v->id)['like_count'];
@@ -57,8 +57,8 @@ class QuestionController extends Controller
         return Inertia::render('CreateQuestion');
     }
     public function questionUser(){
-      $user=User::find(Auth::user()->id);
-      $questions=$user->question;
+      $user_id=Auth::user()->id;
+      $questions=Question::where('user_id',$user_id)->paginate(2);
       return Inertia::render('QuestionUser',[
           'questions'=>$questions
       ]);

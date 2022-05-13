@@ -1,6 +1,7 @@
 <template>
       <Master :success="$page.props.success">
-               <div v-for="(q,index) in questiones" :key="q.id" class="card mb-3">
+          <Pagination :links="$page.props.questions.links"/>
+               <div v-for="(q,index) in questiones.data" :key="q.id" class="card mb-3">
                 <div class="card-header bg-dark">
                     <div class="d-flex justify-content-between">
                         <div>
@@ -53,9 +54,10 @@ import Master from "./Layout/Master.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import axios from "axios";
 import { ref } from '@vue/reactivity';
+import Pagination from "./Components/Pagination.vue";
 export default {
 
-    components:{Master,Link},
+    components:{ Master, Link, Pagination },
     props:['questions','auth_user'],
 
     setup(props){

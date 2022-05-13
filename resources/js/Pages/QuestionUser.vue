@@ -4,9 +4,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                      <div class="card"  v-for="q in ques" :key="q.id">
+                      <div class="card shadow my-2"  v-for="(q,index) in ques" :key="q.id">
                           <div class="card-body">
-                            <Link href="/">{{ q.title  }}</Link>
+                           <div class="d-flex justify-content-between">
+                                <Link href="/" style="text-decoration:none;font-weight:bold">{{ q.title  }}</Link>
+                                <i @click="deleteQuestion(index,q.id)" class="fas fa-trash text-danger"></i>
+                           </div>
                           </div>
                       </div>
                     </div>
@@ -21,6 +24,7 @@ import { ref } from '@vue/reactivity';
 import Master from './Layout/Master.vue';
 import { onMounted } from '@vue/runtime-core';
 import { Link } from '@inertiajs/inertia-vue3';
+import axios from 'axios';
     export default {
     props:{questions:Array},
     components: { Master,Link },
@@ -29,7 +33,14 @@ import { Link } from '@inertiajs/inertia-vue3';
         onMounted(()=>{
             ques.value=props.questions
         });
-        return {ques}
+        let deleteQuestion=(index,q_id)=>{
+            axios.get(route('question.delete',q_id)).then(res=>{
+                if(res.data.success){
+                    ques.value.splice(index,1);
+                }
+            })
+        }
+        return {ques,deleteQuestion}
     }
 }
 </script>

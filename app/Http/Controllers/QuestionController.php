@@ -63,4 +63,8 @@ class QuestionController extends Controller
           'questions'=>$questions
       ]);
     }
+    public function delete($id){
+      Question::where('id',$id)->delete();
+      return response()->json(['success'=>true]);
+    }
 }

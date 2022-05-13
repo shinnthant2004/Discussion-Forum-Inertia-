@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     use HasFactory;
+    public function questions(){
+    return $this->belongsToMany(Question::class,'question_tags');
+    }
 }

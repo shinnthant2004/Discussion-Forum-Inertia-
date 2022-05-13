@@ -67,8 +67,8 @@ export default {
     }
 
     let like=(id,index)=>{
-     questiones.value[index].is_like='true';
-     questiones.value[index].like_count++;
+     questiones.value.data[index].is_like='true';
+     questiones.value.data[index].like_count++;
      axios.get(`/question/like/${id}`).then(res => {
      if(res.data.success==true){
           console.log('true');

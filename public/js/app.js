@@ -21674,8 +21674,8 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     var like = function like(id, index) {
-      questiones.value[index].is_like = 'true';
-      questiones.value[index].like_count++;
+      questiones.value.data[index].is_like = 'true';
+      questiones.value.data[index].like_count++;
       axios__WEBPACK_IMPORTED_MODULE_2___default().get("/question/like/".concat(id)).then(function (res) {
         if (res.data.success == true) {
           console.log('true');
@@ -22866,7 +22866,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "class": "list-group-item",
       key: tag.id
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["Link"], {
-      href: ""
+      href: '/?tag=' + tag.slug
     }, {
       "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
         return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(tag.name), 1
@@ -22876,9 +22876,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       _: 2
       /* DYNAMIC */
 
-    }, 1024
-    /* DYNAMIC_SLOTS */
-    )]);
+    }, 1032
+    /* PROPS, DYNAMIC_SLOTS */
+    , ["href"])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])])], 512

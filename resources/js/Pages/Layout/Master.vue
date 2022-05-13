@@ -31,7 +31,7 @@
                 <div class="card-body">
                     <ul class="list-group">
                         <li class="list-group-item" v-for="tag in $page.props.tags" :key="tag.id">
-                            <Link href>{{ tag.name }}</Link>
+                            <Link :href="'/?tag='+tag.slug">{{ tag.name }}</Link>
                         </li>
                     </ul>
                 </div>

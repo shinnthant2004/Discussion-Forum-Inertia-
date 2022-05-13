@@ -64,6 +64,7 @@ class QuestionController extends Controller
         return Inertia::render('CreateQuestion');
     }
     public function store(Request $request){
+
        $tag_id=$request->tag;
        $q=Question::create([
            'user_id'=>Auth::user()->id,
@@ -75,7 +76,7 @@ class QuestionController extends Controller
            'question_id'=>$q->id,
            'Tag_id'=>$tag_id,
        ]);
-       return response()->json(['success'=>true]);
+      return redirect('/')->with('success','New Question has been created');
     }
     public function questionUser(){
       $user_id=Auth::user()->id;
@@ -89,10 +90,13 @@ class QuestionController extends Controller
       return response()->json(['success'=>true]);
     }
     public function fix(){
-        $q_id=request()->id;
-        Question::where('id',$q_id)->update([
-            'is_fixed'=>'true'
-        ]);
-        return response()->json(['success'=>true]);
-    }
+        $question=Question::where('id',request()->id)->first();
+        $question->is_fixed=true;
+        $question->save();
+        return redirect()->back();
+        // $id=request()->id;
+        // $q=Question::where('id',$id)->update([
+        //     'is_fixed'=>'true'
+        // ]);
+        }
 }

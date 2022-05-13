@@ -37,17 +37,18 @@ import { ref } from '@vue/reactivity';
 export default {
       components:{Master},
       setup(){
-         let form=ref({
+         let form=useForm({
              title:null,
              description:null,
              tag:null,
          })
        let createQuestion=()=>{
-          axios.post(route('question.create',form.value)).then(res=>{
-             if(res.data.success){
-               console.log('success')
-             }
-          })
+        //   axios.post(route('question.create',form.value)).then(res=>{
+        //      if(res.data.success){
+        //        console.log('success')
+        //      }
+        //   })
+         form.post(route('question.create'))
        };
         return {createQuestion,form}
       }

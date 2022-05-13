@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function(){
     //QuestionUser
     Route::get('/profile/question',[QuestionController::class,'questionUser']);
     // Question Fix
-    Route::get('/question/fix',[QuestionController::class,'fix'])->name('question.fix');
+    Route::post('/question/fix',[QuestionController::class,'fix'])->name('question.fix');
     // DeleteQuestion
     Route::get('/question/delete/{id}',[QuestionController::class,'delete'])->name('question.delete');
 });

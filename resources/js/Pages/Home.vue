@@ -10,7 +10,7 @@
                           <span class="text-white ms-2">{{ q.title }}</span>
                         </div>
                         <div>
-                          <button :disabled="q.is_fixed" v-show="isOwn(q.user_id)" @click="fixQuestion(index,q.id)" class="badge bg-warning text-right ms-1">Fixed</button>
+                          <button v-show="isOwn(q.user_id) && q.is_fixed!=='true'" @click="fixQuestion(index,q.id)" class="badge bg-warning text-right ms-1">Fixed</button>
                           <button v-show="isOwn(q.user_id)" href="/delete" class="badge bg-danger text-right ms-1">Delete</button>
                         </div>
                     </div>
@@ -51,7 +51,7 @@
 
 <script>
 import Master from "./Layout/Master.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link, useForm } from "@inertiajs/inertia-vue3";
 import axios from "axios";
 import { ref } from '@vue/reactivity';
 import Pagination from "./Components/Pagination.vue";
@@ -82,15 +82,14 @@ export default {
             return false
         }
     }
-    let fixQuestion=(index,q_id)=>{
-        let data=new FormData();
-        data.append('id',q_id);
-        axios.get('/question/fix',data).then(res=>{
-            if(res.data.success){
-               questiones.value.data[index].is_fixed='true'
+    let fixQuestion= (index,q_id)=>{
+        let form=useForm({
+            id:q_id,
+        });
+        form.post('question/fix')
+            questiones.value.data[index].is_fixed=true;
+            console.log(questiones.value.data[index].is_fixed=true)
                 console.log('success')
-            }
-        })
     }
 
      return {like,questiones,isOwn,fixQuestion}

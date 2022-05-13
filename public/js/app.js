@@ -21580,7 +21580,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layout_Master_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Layout/Master.vue */ "./resources/js/Pages/Layout/Master.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _vue_reactivity__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @vue/reactivity */ "./node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js");
 
 
 
@@ -21590,18 +21589,19 @@ __webpack_require__.r(__webpack_exports__);
     Master: _Layout_Master_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   setup: function setup() {
-    var form = (0,_vue_reactivity__WEBPACK_IMPORTED_MODULE_3__.ref)({
+    var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.useForm)({
       title: null,
       description: null,
       tag: null
     });
 
     var createQuestion = function createQuestion() {
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post(route('question.create', form.value)).then(function (res) {
-        if (res.data.success) {
-          console.log('success');
-        }
-      });
+      //   axios.post(route('question.create',form.value)).then(res=>{
+      //      if(res.data.success){
+      //        console.log('success')
+      //      }
+      //   })
+      form.post(route('question.create'));
     };
 
     return {
@@ -21721,14 +21721,13 @@ __webpack_require__.r(__webpack_exports__);
     };
 
     var fixQuestion = function fixQuestion(index, q_id) {
-      var data = new FormData();
-      data.append('id', q_id);
-      axios__WEBPACK_IMPORTED_MODULE_2___default().get('/question/fix', data).then(function (res) {
-        if (res.data.success) {
-          questiones.value.data[index].is_fixed = 'true';
-          console.log('success');
-        }
+      var form = (0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.useForm)({
+        id: q_id
       });
+      form.post('question/fix');
+      questiones.value.data[index].is_fixed = true;
+      console.log(questiones.value.data[index].is_fixed = true);
+      console.log('success');
     };
 
     return {
@@ -22641,7 +22640,7 @@ var _hoisted_4 = {
 var _hoisted_5 = {
   "class": "text-white ms-2"
 };
-var _hoisted_6 = ["disabled", "onClick"];
+var _hoisted_6 = ["onClick"];
 var _hoisted_7 = {
   href: "/delete",
   "class": "badge bg-danger text-right ms-1"
@@ -22720,14 +22719,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [!q.is_fixed ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, "Need Fixed!")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_4, "Fixed!")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(q.title), 1
         /* TEXT */
         )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-          disabled: q.is_fixed,
           onClick: function onClick($event) {
             return $setup.fixQuestion(index, q.id);
           },
           "class": "badge bg-warning text-right ms-1"
         }, "Fixed", 8
         /* PROPS */
-        , _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id)]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_7, "Delete", 512
+        , _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id) && q.is_fixed !== 'true']]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_7, "Delete", 512
         /* NEED_PATCH */
         ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id)]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(q.description), 1
         /* TEXT */

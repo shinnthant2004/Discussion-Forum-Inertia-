@@ -34,8 +34,8 @@
                             <small>{{ q.comment.length}}</small>
                         </div>
                         <div class="ms-4">
-                            <i class="fas fa-star text-warning"></i>
-
+                            <i @click="saveQuestion(index,q.id)" v-if="q.is_save=='false'" class="far fa-star text-warning"></i>
+                            <i v-else class="fas fa-star text-warning"></i>
                         </div>
                     </div>
                     <div class="col-md-7">
@@ -97,8 +97,15 @@ export default {
                     questiones.value.data.splice(index,1);
                 }
             })
-        }
-     return {like,questiones,isOwn,fixQuestion,deleteQuestion}
+    }
+    let saveQuestion=(index,q_id)=>{
+        questiones.value.data[index].is_save='true';
+        let form=useForm({
+            id:q_id
+        });
+        form.post('question/save')
+    }
+     return {like,questiones,isOwn,fixQuestion,deleteQuestion,saveQuestion}
 }
 }
 </script>

@@ -23,6 +23,9 @@
                         <li class="list-group-item">
                             <Link href="/profile/question"><i class="fas fa-award me-2"></i>Your Questions</Link>
                         </li>
+                        <li class="list-group-item">
+                            <Link href="/question/save"><i class="fas fa-award me-2"></i>Your Saved Questions</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

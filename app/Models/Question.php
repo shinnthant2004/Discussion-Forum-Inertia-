@@ -22,6 +22,6 @@ class Question extends Model
     }
 
     public function saveQ(){
-    return $this->belongsToMany(User::class,'question_save');
+    return $this->belongsToMany(User::class,'question_saves');
     }
 }

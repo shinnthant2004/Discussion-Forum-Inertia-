@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function(){
     Route::post('/question/fix',[QuestionController::class,'fix'])->name('question.fix');
     // DeleteQuestion
     Route::get('/question/delete/{id}',[QuestionController::class,'delete'])->name('question.delete');
+    // saveQuestion
+    Route::get('/question/save',[QuestionController::class,'showSaveQuestion'])->name('show.question.save');
+    Route::post('/question/save',[QuestionController::class,'saveQuestion'])->name('question.save');
 });
 Route::get('/delete',[AuthController::class,'delete']);
 Route::middleware('guest')->group(function(){

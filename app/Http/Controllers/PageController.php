@@ -15,12 +15,19 @@ class PageController extends Controller
       return Inertia::render('EditUser');
     }
     public function postEditUser(Request $request){
+
       $userId=Auth::user()->id;
       $user=User::find($userId);
       $user->name=$request->name;
       $user->email=$request->email;
       $user->password=Hash::make($request->password);
-      $user->image=request()->file('image')->store('userImages');
+      if($request->file('image')){
+        $image=$request->file('image');
+        $image_name=uniqid().str_replace(" ","",$image->getClientOriginalName());
+        $image_path='/images/profile/';
+        $image->move(public_path('images/profile'),$image_name);
+        $user->image=$image_path.$image_name;
+        }
       $user->save();
       return back()->with('success','Updated Successfully');
     }

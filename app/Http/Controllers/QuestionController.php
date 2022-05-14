@@ -9,6 +9,7 @@ use App\Models\Comment;
 use App\Models\Question;
 use App\Models\QuestionTag;
 use App\Models\QuestionLike;
+use App\Models\QuestionSave;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\Question as QuestionTrait;
@@ -36,6 +37,7 @@ class QuestionController extends Controller
 
         foreach($questions as $k=>$v){
             $questions[$k]->is_like=$this->likeDetail($v->id)['is_like'];
+            $questions[$k]->is_save=$this->likeDetail($v->id)['is_save'];
             $questions[$k]->like_count=$this->likeDetail($v->id)['like_count'];
         }
         return  Inertia::render('Home',[
@@ -103,9 +105,22 @@ class QuestionController extends Controller
         $question->is_fixed=true;
         $question->save();
         return redirect()->back();
-        // $id=request()->id;
-        // $q=Question::where('id',$id)->update([
-        //     'is_fixed'=>'true'
-        // ]);
-        }
+    }
+    public function showSaveQuestion(){
+        $questions=Question::whereHas('saveQ',function(Builder $q){
+            $q->where('user_id',Auth::user()->id);
+        })->with('comment','tag','saveQ')->orderBy('created_at','DESC')->paginate(5);
+        return Inertia::render('saveQuestions',[
+            'saveQuestions'=>$questions
+        ]);
+    }
+    public function saveQuestion(){
+        $q_id=request()->id;
+        $user_id=Auth::user()->id;
+        QuestionSave::create([
+            'question_id'=>$q_id,
+            'user_id'=>$user_id
+        ]);
+      return redirect()->back()->with('success','Question saved');
+    }
 }

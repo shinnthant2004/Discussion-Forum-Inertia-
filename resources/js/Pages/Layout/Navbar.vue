@@ -9,16 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <Link class="nav-link active" aria-current="page" href="/">Home</Link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">All Questions</a>
+          <Link class="nav-link" href="/">All Questions</Link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Answered Questions</a>
+          <Link class="nav-link" href="/?type=answer">Answered Questions</Link>
         </li>
          <li class="nav-item">
-          <a class="nav-link" href="#">Unanswered Questions</a>
+          <Link class="nav-link" href="/?type=unanswer">Unanswered Questions</Link>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -26,7 +26,6 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <li><a class="dropdown-item fw-bold" href="#">Welcome {{ $page.props.auth_user.name }}</a></li>
-            <li><Link class="dropdown-item" :href="route('question.create')">Create Question</Link></li>
             <li><Link class="dropdown-item" href="/profile/edituser">Edit User</Link></li>
             <li><a class="dropdown-item" href="/logout">Log Out</a></li>
           </ul>

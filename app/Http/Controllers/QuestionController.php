@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Comment;
 use App\Models\Question;
 use App\Models\QuestionTag;
 use App\Models\QuestionLike;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\Question as QuestionTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 class QuestionController extends Controller
 {
@@ -21,8 +22,16 @@ class QuestionController extends Controller
        if($slug=$request->tag){
           $tag=Tag::where('slug',$slug)->first();
           $questions=$tag->questions()->with('comment','tag','saveQ')->orderBy('created_at','DESC')->paginate(5)->withQueryString();
+        }elseif($type=$request->type){
+          if($type==='answer'){
+             $questions=Question::whereHas('comment',function(Builder $q){$q->where('user_id',Auth::user()->id);})
+               ->with('comment','tag','saveQ')->orderBy('created_at','DESC')->paginate(5);
+          }
+          if($type=='unanswer'){
+            $questions=Question::has('comment','<',1)->with('comment','tag','saveQ')->orderBy('created_at','DESC')->paginate(5);
+          }
         }else{
-        $questions=Question::with('comment','tag','saveQ')->orderBy('created_at','DESC')->paginate(5);
+            $questions=Question::with('comment','tag','saveQ')->orderBy('created_at','DESC')->paginate(5);
         }
 
         foreach($questions as $k=>$v){

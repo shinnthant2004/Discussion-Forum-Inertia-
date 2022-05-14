@@ -42,7 +42,7 @@ import axios from 'axios';
         let deleteQuestion=(index,q_id)=>{
             axios.get(route('question.delete',q_id)).then(res=>{
                 if(res.data.success){
-                    ques.value.splice(index,1);
+                    ques.value.data.splice(index,1);
                 }
             })
         }

@@ -20,9 +20,9 @@ class QuestionController extends Controller
     public function home(Request $request){
        if($slug=$request->tag){
           $tag=Tag::where('slug',$slug)->first();
-          $questions=$tag->questions()->with('comment','tag','saveQ')->paginate(2)->withQueryString();
+          $questions=$tag->questions()->with('comment','tag','saveQ')->orderBy('created_at','DESC')->paginate(5)->withQueryString();
         }else{
-        $questions=Question::with('comment','tag','saveQ')->paginate(2);
+        $questions=Question::with('comment','tag','saveQ')->orderBy('created_at','DESC')->paginate(5);
         }
 
         foreach($questions as $k=>$v){
@@ -80,7 +80,7 @@ class QuestionController extends Controller
     }
     public function questionUser(){
       $user_id=Auth::user()->id;
-      $questions=Question::where('user_id',$user_id)->paginate(2);
+      $questions=Question::where('user_id',$user_id)->paginate(5);
       return Inertia::render('QuestionUser',[
           'questions'=>$questions
       ]);

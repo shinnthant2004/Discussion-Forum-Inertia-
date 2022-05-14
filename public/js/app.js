@@ -21730,11 +21730,20 @@ __webpack_require__.r(__webpack_exports__);
       console.log('success');
     };
 
+    var deleteQuestion = function deleteQuestion(index, q_id) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().get(route('question.delete', q_id)).then(function (res) {
+        if (res.data.success) {
+          questiones.value.data.splice(index, 1);
+        }
+      });
+    };
+
     return {
       like: like,
       questiones: questiones,
       isOwn: isOwn,
-      fixQuestion: fixQuestion
+      fixQuestion: fixQuestion,
+      deleteQuestion: deleteQuestion
     };
   }
 });
@@ -21931,7 +21940,7 @@ __webpack_require__.r(__webpack_exports__);
     var deleteQuestion = function deleteQuestion(index, q_id) {
       axios__WEBPACK_IMPORTED_MODULE_3___default().get(route('question.delete', q_id)).then(function (res) {
         if (res.data.success) {
-          ques.value.splice(index, 1);
+          ques.value.data.splice(index, 1);
         }
       });
     };
@@ -22641,10 +22650,7 @@ var _hoisted_5 = {
   "class": "text-white ms-2"
 };
 var _hoisted_6 = ["onClick"];
-var _hoisted_7 = {
-  href: "/delete",
-  "class": "badge bg-danger text-right ms-1"
-};
+var _hoisted_7 = ["onClick"];
 var _hoisted_8 = {
   "class": "card-body"
 };
@@ -22725,9 +22731,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           "class": "badge bg-warning text-right ms-1"
         }, "Fixed", 8
         /* PROPS */
-        , _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id) && q.is_fixed !== 'true']]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_7, "Delete", 512
-        /* NEED_PATCH */
-        ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id)]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(q.description), 1
+        , _hoisted_6), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id) && q.is_fixed == 'false']]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+          href: "#",
+          onClick: function onClick($event) {
+            return $setup.deleteQuestion(index, q.id);
+          },
+          "class": "badge bg-danger text-right ms-1"
+        }, "Delete", 8
+        /* PROPS */
+        , _hoisted_7), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.isOwn(q.user_id)]])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(q.description), 1
         /* TEXT */
         )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
           onClick: function onClick($event) {
@@ -22744,6 +22756,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         /* TEXT */
         )]), _hoisted_19]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.$page.props.tags, function (tag) {
           return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
+            href: '?tag=' + tag.slug,
             key: tag.id,
             "class": "badge bg-dark ms-2"
           }, {
@@ -22755,9 +22768,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
             _: 2
             /* DYNAMIC */
 
-          }, 1024
-          /* DYNAMIC_SLOTS */
-          );
+          }, 1032
+          /* PROPS, DYNAMIC_SLOTS */
+          , ["href"]);
         }), 128
         /* KEYED_FRAGMENT */
         ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Link, {

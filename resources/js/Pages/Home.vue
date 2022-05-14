@@ -10,8 +10,8 @@
                           <span class="text-white ms-2">{{ q.title }}</span>
                         </div>
                         <div>
-                          <button v-show="isOwn(q.user_id) && q.is_fixed!=='true'" @click="fixQuestion(index,q.id)" class="badge bg-warning text-right ms-1">Fixed</button>
-                          <button v-show="isOwn(q.user_id)" href="/delete" class="badge bg-danger text-right ms-1">Delete</button>
+                          <button v-show="isOwn(q.user_id) && q.is_fixed=='false'" @click="fixQuestion(index,q.id)" class="badge bg-warning text-right ms-1">Fixed</button>
+                          <button v-show="isOwn(q.user_id)" href="#" @click="deleteQuestion(index,q.id)" class="badge bg-danger text-right ms-1">Delete</button>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="col-md-7">
-                     <Link v-for="tag in $page.props.tags" :key="tag.id" class="badge bg-dark ms-2">{{ tag.name }}</Link>
+                     <Link v-for="tag in $page.props.tags" :href="'?tag='+tag.slug" :key="tag.id" class="badge bg-dark ms-2">{{ tag.name }}</Link>
                     </div>
                     <div class="col-md-2">
                         <Link class="btn btn-sm btn-primary" :href="route('question.detail',q.slug)">View</Link>
@@ -91,8 +91,14 @@ export default {
             console.log(questiones.value.data[index].is_fixed=true)
                 console.log('success')
     }
-
-     return {like,questiones,isOwn,fixQuestion}
+    let deleteQuestion=(index,q_id)=>{
+            axios.get(route('question.delete',q_id)).then(res=>{
+                if(res.data.success){
+                    questiones.value.data.splice(index,1);
+                }
+            })
+        }
+     return {like,questiones,isOwn,fixQuestion,deleteQuestion}
 }
 }
 </script>
